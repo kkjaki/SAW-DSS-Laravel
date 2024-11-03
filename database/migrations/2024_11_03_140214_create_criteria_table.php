@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('criteria', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade'); //foreign key to users table
-            $table->string('name');
             $table->enum('attribute', ['benefit', 'cost']);
+            $table->string('name');
             $table->decimal('weight', 8, 2);
             $table->timestamps();
         });
