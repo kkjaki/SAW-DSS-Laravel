@@ -16,8 +16,8 @@ class AlternativeValue extends Model
         return $this->belongsTo(Alternative::class);
     }
 
-    public function criterion(): BelongsTo
+    public function criteria(): BelongsTo
     {
-        return $this->belongsTo(Criterion::class, 'criteria_id');
+        return $this->belongsTo(Criteria::class);
     }
 }

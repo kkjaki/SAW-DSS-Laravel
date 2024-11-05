@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class Criterion extends Model
+class Criteria extends Model
 {
     protected $fillable = [
         'enum',
@@ -27,6 +27,6 @@ class Criterion extends Model
 
     public function alternativeValues():HasMany
     {
-        return $this->hasMany(AlternativeValue::class, 'criteria_id');
+        return $this->hasMany(AlternativeValue::class);
     }
 }
