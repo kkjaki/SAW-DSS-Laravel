@@ -12,7 +12,6 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('alternativeValues', function (Blueprint $table) {
-            $table->id();
             $table->foreignId('alternative_id')->constrained()->onDelete('cascade');
             $table->foreignId('criteria_id')->constrained()->onDelete('cascade');
             $table->decimal('score', 5, 2);
