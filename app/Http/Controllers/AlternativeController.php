@@ -2,16 +2,20 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Alternative;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AlternativeController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $user = $request->user();
+        $alternative = Alternative::where('user_id', $user->id)->get();
+        return view('dashboard', compact($alternative));
     }
 
     /**
@@ -19,7 +23,7 @@ class AlternativeController extends Controller
      */
     public function create()
     {
-        //
+        return view('alternative.create');
     }
 
     /**
@@ -27,7 +31,14 @@ class AlternativeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $user = Auth::user();
+        $request->validate([
+            'name' => 'required|string|max:255',
+        ]);
+        $data = $request->all();
+        $data['user_id'] = $user->id;
+        Alternative::create($data);
+        return redirect()->route('dashboard')->with('success', 'Alternative created successfully.');
     }
 
     /**
@@ -43,7 +54,9 @@ class AlternativeController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        //ambil data alternative berdasarkan id
+        $alternative = Alternative::findOrFail($id);
+        return view('alternative.edit', compact($alternative));
     }
 
     /**
@@ -51,7 +64,12 @@ class AlternativeController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $alternative = Alternative::findOrFail($id);
+        $request->validate([
+            'name' => 'required|string|max:255',
+        ]);
+        $data = $request->all();
+        $alternative->update($data);
     }
 
     /**
@@ -59,6 +77,7 @@ class AlternativeController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $alternative = Alternative::findOrFail($id);
+        $alternative->delete();
     }
 }
