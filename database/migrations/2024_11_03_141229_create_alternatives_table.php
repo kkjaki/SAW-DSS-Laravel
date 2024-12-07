@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
+class CreateAlternativesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->string('name');
             $table->decimal('final_score', 8, 2)->nullable();
-            $table->int('rank')->nullable();
+            $table->integer('rank')->nullable();
             $table->timestamps();
         });
     }
@@ -28,4 +28,4 @@ return new class extends Migration
     {
         Schema::dropIfExists('alternatives');
     }
-};
+}
