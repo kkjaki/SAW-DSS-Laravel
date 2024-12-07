@@ -9,7 +9,6 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Criteria extends Model
 {
     protected $fillable = [
-        'enum',
         'attribute',
         'name',
         'weight'
