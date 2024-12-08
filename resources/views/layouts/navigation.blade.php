@@ -16,6 +16,20 @@
                         {{ __('Dashboard') }}
                     </x-nav-link>
                 </div>
+                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <x-nav-link :href="route('criteria.index')" :active="request()->routeIs('dashboard')">
+                        {{ __('Criteria') }}
+                    </x-nav-link>
+                </div>
+                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <x-nav-link :href="route('alternatives.index')" :active="request()->routeIs('dashboard')">
+                        {{ __('Alternative') }}
+                    </x-nav-link>
+                </div>
+                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <x-nav-link :href="route('alternativevalue.index')" :active="request()->routeIs('dashboard')">
+                        {{ __('Alternative Value') }}
+                    </x-nav-link>
             </div>
 
             <!-- Settings Dropdown -->
