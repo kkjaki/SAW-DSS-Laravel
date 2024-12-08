@@ -18,9 +18,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-    Route::resource('alternative', AlternativeController::class);
+    Route::get('dashboard', [AlternativeValueController::class, 'index'])->name('dashboard');
     Route::resource('criteria', CriteriaController::class);
-    Route::resource('alternative-value', AlternativeValueController::class);
+    Route::resource('alternatives', AlternativeController::class);
+    Route::resource('alternativevalue', AlternativeValueController::class);
 });
 
 require __DIR__ . '/auth.php';

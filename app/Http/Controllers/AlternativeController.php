@@ -14,8 +14,8 @@ class AlternativeController extends Controller
     public function index(Request $request)
     {
         $user = $request->user();
-        $alternative = Alternative::where('user_id', $user->id)->get();
-        return view('dashboard', compact($alternative));
+        $alternatives = Alternative::where('user_id', $user->id)->get();
+        return view('alternatives.index', compact('alternatives'));
     }
 
     /**
@@ -23,7 +23,7 @@ class AlternativeController extends Controller
      */
     public function create()
     {
-        return view('alternative.create');
+        return view('alternatives.create');
     }
 
     /**
@@ -56,7 +56,7 @@ class AlternativeController extends Controller
     {
         //ambil data alternative berdasarkan id
         $alternative = Alternative::findOrFail($id);
-        return view('alternative.edit', compact($alternative));
+        return view('alternatives.edit', compact($alternative));
     }
 
     /**
@@ -70,6 +70,7 @@ class AlternativeController extends Controller
         ]);
         $data = $request->all();
         $alternative->update($data);
+        return redirect()->route('alternatives.index')->with('success', 'Alternative updated successfully.');
     }
 
     /**
@@ -79,5 +80,6 @@ class AlternativeController extends Controller
     {
         $alternative = Alternative::findOrFail($id);
         $alternative->delete();
+        return redirect()->route('alternatives.index')->with('success', 'Alternative deleted successfully.');
     }
 }

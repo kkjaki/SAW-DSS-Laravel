@@ -15,7 +15,7 @@ class CriteriaController extends Controller
     {
         $user = Auth::user();
         $criteria = Criteria::where('user_id', $user->id)->get();
-        return view('dashboard', compact('criteria'));
+        return view('criteria.index', compact('criteria'));
     }
 
     /**
@@ -40,7 +40,7 @@ class CriteriaController extends Controller
         $data = $request->all();
         $data['user_id'] = $user->id;
         Criteria::create($data);
-        return redirect()->route('dashboard')->with('success', 'Criteria created successfully.');
+        return redirect()->route('criteria.index')->with('success', 'Criteria created successfully.');
     }
 
     /**
@@ -74,6 +74,8 @@ class CriteriaController extends Controller
         //caridata criteria berdasarkan id
         $criteria = Criteria::findOrFail($id);
         $criteria->update($request->all());
+        return redirect()->route('criteria.index')->with('success', 'Criteria updated successfully.');
+
     }
 
     /**
@@ -84,5 +86,6 @@ class CriteriaController extends Controller
         //ambil data criteria berdasarkan id
         $criteria = Criteria::findOrFail($id);
         $criteria->delete();
+        return redirect()->route('criteria.index')->with('success', 'Criteria deleted successfully.');
     }
 }

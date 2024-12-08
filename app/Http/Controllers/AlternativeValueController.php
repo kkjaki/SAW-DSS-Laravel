@@ -16,8 +16,10 @@ class AlternativeValueController extends Controller
     public function index()
     {
         $user = Auth::user();
-        $alternativeValue = $user->alternatives->load('alternativeValues');
-        return view('dashboard', compact('alternativeValue'));
+        $criteria = $user->criteria;
+        $alternatives = $user->alternatives;
+        $alternativeValue = $alternatives?->load('alternativevalues');
+        return view('dashboard', compact('alternativeValue', 'user', 'alternatives', 'criteria'));
     }
 
     /**
