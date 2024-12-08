@@ -57,7 +57,7 @@ class User extends Authenticatable
         return $this->hasMany(Criteria::class);
     }
     
-    public function alternative(): HasMany
+    public function alternatives(): HasMany
     {
         return $this->hasMany(Alternative::class);
     }

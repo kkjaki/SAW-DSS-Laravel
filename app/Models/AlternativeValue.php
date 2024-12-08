@@ -7,6 +7,9 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class AlternativeValue extends Model
 {
+
+    protected $table = 'alternativevalues'; // Nama tabel eksplisit
+
     protected $fillable = [
         'score'
     ];
