@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Alternative;
+use App\Models\AlternativeValue;
+use App\Models\Criteria;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -23,7 +25,8 @@ class AlternativeController extends Controller
      */
     public function create()
     {
-        return view('alternatives.create');
+        $criteria = Auth::user()->criteria;
+        return view('alternatives.create', compact('criteria'));
     }
 
     /**
@@ -34,10 +37,23 @@ class AlternativeController extends Controller
         $user = Auth::user();
         $request->validate([
             'name' => 'required|string|max:255',
+            'criteria' => 'required|array',
+            'criteria.*' => 'required|numeric|min:0', // Validate criteria values
         ]);
-        $data = $request->all();
+        $data = $request->only(['name', 'criteria']);
         $data['user_id'] = $user->id;
-        Alternative::create($data);
+        $data['user_id'] = $user->id;
+        $alternative = $user->alternatives()->create($data);
+
+        $alternativeValues = [];
+        foreach ($request['criteria'] as $criteria_id => $score) {
+            $alternativeValues[] = [
+                'criteria_id' => $criteria_id,
+                'alternative_id' => $alternative->id,
+                'score' => $score,
+            ];
+        }
+        AlternativeValue::insert($alternativeValues);
         return redirect()->route('dashboard')->with('success', 'Alternative created successfully.');
     }
 

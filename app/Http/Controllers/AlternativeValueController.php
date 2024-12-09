@@ -19,7 +19,7 @@ class AlternativeValueController extends Controller
         $criteria = $user->criteria;
         $alternatives = $user->alternatives;
         $alternativeValue = $alternatives?->load('alternativevalues');
-        return view('dashboard', compact('alternativeValue', 'user', 'alternatives', 'criteria'));
+        return view('alternativevalues.index', compact('alternativeValue', 'user', 'alternatives', 'criteria'));
     }
 
     /**
